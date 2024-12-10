@@ -1,0 +1,111 @@
+// Generador de cliente
+generator client {
+  provider = "prisma-client-js"
+}
+
+enum Role {
+  user
+  admin
+}
+enum EstadoPedido {
+  RECIBIDO
+  PREPARADO
+  DESPACHADO
+  ENTREGADO
+}
+
+// Fuente de datos
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+
+model Producto {
+  id_producto  Int @id @default(autoincrement())
+  nombre       String
+  descripcion  String
+  imagen       String
+  precio       Float
+  cantidad     Int
+  marca        String
+  tipo         String
+  pedidos      PedidoProducto[]
+  combos       ComboProducto[]
+
+  ComboCantidad ComboCantidad[]
+}
+
+
+// Modelo de Pedido
+model Pedido {
+  id_pedido     Int @id @default(autoincrement())
+  id_stripe     String  @unique @default("undefined")
+  id_usuario    Int
+  fecha         DateTime
+  metodo_pago   String
+  estadoCompra  String
+  estadoPedido  EstadoPedido @default(RECIBIDO)
+  precio_final  Float 
+  recargos      Float
+  descuentos    Float
+  detalles      String?           // Campo opcional para almacenar detalles de la compra
+  productos     PedidoProducto[]  // Relación con la tabla intermedia
+  usuario       Usuario   @relation(fields: [id_usuario], references: [id_usuario])
+}
+
+model PedidoProducto {
+  id_pedido    Int
+  id_producto  Int
+  cantidad     Int
+  pedido       Pedido  @relation(fields: [id_pedido], references: [id_pedido])
+  producto     Producto @relation(fields: [id_producto], references: [id_producto])
+  
+  @@id([id_pedido, id_producto])  // Llave compuesta
+}
+
+// Modelo de Usuario
+model Usuario {
+  id_usuario          Int @id @default(autoincrement())
+  nombre              String?
+  apellido            String?
+  correo              String? @unique
+  clave               String?
+  telefono            String?
+  direccion           String?
+  localidad           String?
+  role                Role    @default(user)
+  cuentaVerificada    Boolean @default(false)
+  // role             String?
+  pedidos             Pedido[]
+  puntos              Int      @default(0)  // Campo para almacenar los puntos del usuario
+  fecha_ultima_compra DateTime?             // Fecha de la última compra
+}
+
+model Combo {
+  id_combo       Int      @id @default(autoincrement())
+  nombre         String
+  descuento      Float
+  productos      ComboProducto[]
+  id_usuario     Int
+}
+
+model ComboProducto {
+  id_combo     Int
+  id_producto  Int
+  combo        Combo     @relation(fields: [id_combo], references: [id_combo])
+  producto     Producto  @relation(fields: [id_producto], references: [id_producto])
+  precioDescuento Float  @default(0.0)
+
+  @@id([id_combo, id_producto])
+}
+
+model ComboCantidad {
+  id_comboCantidad  Int   @id @default(autoincrement())
+  id_producto       Int
+  cantidad_minima   Int
+  descuento         Float
+  producto          Producto @relation(fields: [id_producto], references: [id_producto])
+
+  @@unique([id_producto, cantidad_minima])
+}
