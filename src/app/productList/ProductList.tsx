@@ -25,7 +25,7 @@ const ProductList: React.FC = () => {
       <h2>Carrito</h2>
       <ul>
         {context.cartItems.map(item => (
-          <li key={item.id_producto}>{item.nombre}</li>
+         <li key={item.producto?.id_producto}>{item.producto?.nombre}</li>
         ))}
       </ul>
     </div>

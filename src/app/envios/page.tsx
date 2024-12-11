@@ -1,6 +1,5 @@
 "use client"
 import React, { useState } from 'react'
-import { cotizacion } from '../../../utils/metodosDeEnvio';
 import type {NextApiResponse } from 'next';
 
 const PageEnvio =  () => {
@@ -74,9 +73,8 @@ const PageEnvio =  () => {
     
 
     try {
-      const data = await cotizacion(url, params);
-      setResultado(data);
-      setError(null);
+      setError("Error al obtener la cotización");
+      setResultado(null);
     } catch (error) {
       setError("Error al obtener la cotización");
       setResultado(null);

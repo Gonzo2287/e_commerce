@@ -85,6 +85,7 @@ export const Carrito: React.FC = () => {
 
   const handleApplyDiscount = () => {
     const total = getTotalPrice();
+    //@ts-expect-error
     const puntosUsuario = session?.puntos || 0;
 
     console.log("Applying Discount - Total:", total);

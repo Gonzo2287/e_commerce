@@ -64,7 +64,7 @@ const ProductForm: React.FC<Props> = ({ productos }) => {
     try {
       const respuesta = await fetch(`/api/producto/${id_producto}`, { method: 'DELETE' });
       if (!respuesta.ok) throw new Error('Error al eliminar el producto');
-      setProductosData(prev => prev.filter(producto => producto.id_producto !== id_producto));
+      setProductosData(prev => prev.filter(producto => producto.id_producto !== id_producto.toString()));
     } catch (error) {
       console.error(error);
     }
@@ -98,7 +98,7 @@ const ProductForm: React.FC<Props> = ({ productos }) => {
   };
 
   const handleEditarClick = (producto: ProductoData) => {
-    setEditProductoId(producto.id_producto);
+    setEditProductoId(Number(producto.id_producto));
     setNombre(producto.nombre);
     setDescripcion(producto.descripcion);
     setImagenUrl(producto.imagen);
@@ -381,7 +381,7 @@ const ProductForm: React.FC<Props> = ({ productos }) => {
                                     Editar
                                 </button>
                                 <button 
-                                    onClick={() => eliminarProductoLocal(producto.id_producto)} 
+                                    onClick={() => eliminarProductoLocal(Number(producto.id_producto))} 
                                     className="rounded-lg bg-red-500 p-2 hover:bg-red-700 shadow-gray-400  shadow-lg "
                                 >
                                     Eliminar

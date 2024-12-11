@@ -391,7 +391,7 @@ const AdminCombos = () => {
                                             <li key={producto.id_producto} className="flex justify-between items-center mb-2 p-2 border border-gray-300 rounded">
                                                 <span>{producto.nombre}</span>
                                                 <button 
-                                                    onClick={() => handleAgregarProducto(producto.id_producto)} 
+                                                   onClick={() => handleAgregarProducto(parseInt(producto.id_producto))}
                                                     className="bg-green-500 text-white font-semibold py-1 px-2 rounded hover:bg-green-600"
                                                 >
                                                     Agregar
@@ -503,7 +503,7 @@ const AdminCombos = () => {
                                             <p>Productos:</p>
                                             <ul>
                                                 {(combo.productos && Array.isArray(combo.productos) ? combo.productos : []).map((producto) => {
-                                                    const productoEncontrado = productosData.find((prod) => prod.id_producto === producto.id_producto);
+                                                    const productoEncontrado = productosData.find((prod) => prod.id_producto === producto.id_producto.toString());
                                                     return (
                                                         <li key={producto.id_producto}>
                                                             {productoEncontrado ? productoEncontrado.nombre : `Producto ID: ${producto.id_producto}`}
@@ -537,7 +537,7 @@ const AdminCombos = () => {
                                 <CardBody className="overflow-visible p-0 text-center">
                                     <li key={comboCantidad.id_comboCantidad} className="flex flex-col justify-between items-center mb-2 p-2 border border-gray-300 rounded">
                                         {productosData.map((producto) => 
-                                            comboCantidad.id_producto === producto.id_producto && (
+                                            comboCantidad.id_producto.toString() === producto.id_producto && (
                                                 <div>
                                                     <p>Producto: {producto.nombre}</p>
                                                     <Image
