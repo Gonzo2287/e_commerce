@@ -25,7 +25,7 @@ export async function createPedido(data : any) {
     }
 }
 
-export async function completePurchase(userId: string) {
+/* export async function completePurchase(userId: string) {
     try {
       // Procesa la compra (por ejemplo, guarda la orden)
       
@@ -39,7 +39,7 @@ export async function completePurchase(userId: string) {
       console.error("Error al completar la compra", error);
       throw new Error("Error al completar la compra");
     }
-  }
+  } */
   
 //   export async function getPedidoById( id: string){
 //     try {
