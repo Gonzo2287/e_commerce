@@ -3,8 +3,7 @@ import { Carrito } from '@/components/Carrito';
 import { useSession } from "next-auth/react";
 import { calculateDiscount, canApplyDiscount, } from '../../../utils/pointsDiscount';
 
-const Page = () => {
-  const removeFromCart = () => {};
+export default function Page() {
   const { data: session } = useSession();
   const userPoints = session?.user?.puntos || 0;
   
@@ -35,5 +34,3 @@ const Page = () => {
       </div>
   );
 };
-
-export default Page;

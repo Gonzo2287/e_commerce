@@ -1,6 +1,7 @@
 import SeguimientoCompra from "@/components/SeguimientoCompra";
 import { getPedidos } from "../../../utils/getPedidos";
 
+export const dynamic = 'force-dynamic';
 
 export default async function MisCompras() {
   try {
