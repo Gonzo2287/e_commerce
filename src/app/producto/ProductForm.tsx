@@ -29,7 +29,7 @@ const ProductForm: React.FC<Props> = ({ productos }) => {
   // Traer productos de la API
   const traerProductos = async () => {
     try {
-      const respuesta = await fetch("http://localhost:3000/api/producto");
+      const respuesta = await fetch("/api/producto");
       const datos = await respuesta.json();
       setProductosData(datos);
     } catch (error) {

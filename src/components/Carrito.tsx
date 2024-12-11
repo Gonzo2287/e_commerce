@@ -20,7 +20,7 @@ export const Carrito: React.FC = () => {
 
   const traerCombos = async () => {
     try {
-      const comboCantidadRes = await fetch("http://localhost:3000/api/combosCantidad");
+      const comboCantidadRes = await fetch("/api/combosCantidad");
       const comboCantidadData: ComboCantidadData[] = await comboCantidadRes.json();
       setCombosCantidad(comboCantidadData);
     } catch (error) {
@@ -88,7 +88,7 @@ export const Carrito: React.FC = () => {
 
   const handleApplyDiscount = () => {
     const total = getTotalPrice();
-    const puntosUsuario = session?.user?.puntos || 0;
+    const puntosUsuario = session?.user.puntos || 0;
 
     console.log("Applying Discount - Total:", total);
     console.log("Applying Discount - User Points:", puntosUsuario);

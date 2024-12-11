@@ -31,7 +31,7 @@ const AdminCombos = () => {
 
     const traerCombos = async () => {
         try {
-            const respuesta = await fetch("http://localhost:3000/api/combos");
+            const respuesta = await fetch("/api/combos");
             const datos = await respuesta.json();
             setCombos(datos);
             const initialIndices: { [key: number]: number } = {};
@@ -47,7 +47,7 @@ const AdminCombos = () => {
 
     const traerCombosCantidad = async () => {
         try {
-            const respuesta = await fetch("http://localhost:3000/api/combosCantidad");
+            const respuesta = await fetch("/api/combosCantidad");
             const datos = await respuesta.json();
             setCombosCantidad(datos);
         } catch (error) {
@@ -57,7 +57,7 @@ const AdminCombos = () => {
 
     const traerProductos = async () => {
         try {
-            const respuesta = await fetch("http://localhost:3000/api/producto");
+            const respuesta = await fetch("/api/producto");
             const datos = await respuesta.json();
             setProductosData(datos);
         } catch (error) {

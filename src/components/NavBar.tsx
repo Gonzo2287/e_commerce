@@ -5,8 +5,7 @@ import {Navbar, NavbarBrand, NavbarMenuToggle, NavbarMenuItem, NavbarMenu, Navba
 import React, { useState } from "react";
 import ReenviarMail from "./ReenviarMail";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faHouse, faUser, faBagShopping, faTruck, faSignIn } from '@fortawesome/free-solid-svg-icons';
-
+import { faHouse, faUser, faBagShopping, faTruck } from '@fortawesome/free-solid-svg-icons';
 
 const NavBar = async () => {
   
@@ -32,9 +31,9 @@ const NavBar = async () => {
 
   return (
     <>
-    <Navbar className=" bg-white z-50 p-4">
+    <Navbar className="fixed bg-white z-50 p-4">
       <NavbarBrand>
-        <h1 className="font-bold text-inherit">E-commerce</h1>
+        <p className="font-bold text-inherit">E-commerce</p>
       </NavbarBrand>
       <NavbarContent className="hidden sm:flex gap-4 " justify="center">
         <NavbarItem className="hover:text-secondary-700">
@@ -57,9 +56,11 @@ const NavBar = async () => {
         </NavbarItem>
         {!session?.user ? (
           <>
-            <NavbarItem className="bg-primary-700 text-white p-2 rounded-md hover:bg-secondary-700">
-              <FontAwesomeIcon icon={faSignIn} className="h-4 mr-1" />
-              <Link href="/auth/login">Ingresa o Registrate</Link>
+            <NavbarItem className="hover:text-secondary-700">
+              <Link href="/auth/login">Login</Link>
+            </NavbarItem>
+            <NavbarItem className="hover:text-secondary-700">
+              <Link href="/registro">Register</Link>
             </NavbarItem>
           </>
         ) : (
@@ -81,7 +82,7 @@ const NavBar = async () => {
                     <Link href="/dashboard">Dashboard</Link>
                   </NavbarItem>                  
                     </>
-                  <NavbarItem className="hover:text-secondary-700 mr-10">
+                  <NavbarItem className="hover:text-secondary-700">
                     <Link href="/pedidosAdmin">
                       <FontAwesomeIcon icon={faTruck} />
                       Pedidos

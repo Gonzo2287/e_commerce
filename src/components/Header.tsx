@@ -1,8 +1,7 @@
 "use client";
 import { CartContext } from "@/context/CartContext";
 import { useContext, useEffect, useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {faShoppingCart } from "@fortawesome/free-solid-svg-icons";
+import Image from "next/image";
 
 export const Header = () => {
     const { cartItems, isCarritoVisible, setCarritoVisible } = useContext(CartContext);
@@ -17,12 +16,12 @@ export const Header = () => {
     };
 
     return (
-        <div className="flex justify-between w-4 absolute top-5 right-40 h-4 z-50">
+        <div className="flex justify-between">
             
             {isMounted && ( // Renderiza solo si el componente está montado
-                <div className="flex w-full">
+                <div>
                     <p className="text-lg cursor-pointer" onClick={toggleSideBar}>
-                    <FontAwesomeIcon icon={faShoppingCart} />
+                        🛒<strong>{cartItems.length}</strong>
                     </p>
                     {/* <Image src="/img/grocery-store.png" alt="" width={32} height={32} className="mr-2" onClick={toggleSideBar}/>*/}
                 </div>

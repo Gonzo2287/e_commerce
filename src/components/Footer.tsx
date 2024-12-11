@@ -1,8 +1,5 @@
 "use client";
 
-import Link from "next/link";
-
-
 export default function Footer() {
   return (
     <footer className="bg-primary-700 text-white py-10 mt-6">
@@ -33,17 +30,12 @@ export default function Footer() {
               target="_blank"
               rel="noopener noreferrer"
             >
-             
               <img
                 src="/img/whatsapp.png"
                 alt="WhatsApp"
                 className="w-8 h-8 hover:opacity-80 transition-opacity"
               />
             </a>
-            <Link href="/compras" className="flex justify-center items-center">
-
-            Mis Compras
-            </Link>
             <a
               href="https://linkedin.com/in/tuperfil"
               target="_blank"
