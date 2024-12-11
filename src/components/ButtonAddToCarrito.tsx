@@ -93,7 +93,7 @@ const addComboToCart = (combo: ComboData, cantidad: number) => {
 
   return (
     <Button
-      className="bg-green-600 shadow-inner shadow-green-500 text-xl text-white hover:bg-green-500"
+      className="bg-primary-500 shadow-inner shadow-primary-700 text-xl text-white hover:bg-primary-700"
       onClick={handleAddToCart}
     >
       Comprar

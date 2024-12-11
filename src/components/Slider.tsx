@@ -10,7 +10,7 @@ export const Slider = () => {
 
   const traerCombos = async () => {
     try {
-      const response = await fetch("/api/combos");
+      const response = await fetch("http://localhost:3000/api/combos");
       const datos = await response.json();
       setCombos(datos);
     } catch (error) {

@@ -39,7 +39,8 @@ export default {
                     name: user.nombre,
                     email: user.correo,
                     role: user.role,
-                    puntos: user?.puntos
+                    puntos: user?.puntos,
+                    cuentaVerificada: user.cuentaVerificada,
                 } 
                 return userAuth;
                 

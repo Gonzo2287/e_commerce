@@ -16,7 +16,7 @@ enum EstadoPedido {
 
 // Fuente de datos
 datasource db {
-  provider = "postgresql"
+  provider = "mysql"
   url      = env("DATABASE_URL")
 }
 

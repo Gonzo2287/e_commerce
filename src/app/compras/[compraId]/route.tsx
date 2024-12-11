@@ -20,6 +20,7 @@ export async function POST(request: Request) {
         recargos: 0,
         descuentos: 0,
         fecha: new Date(),
+        puntosGanados: puntosGanados,
       },
     });
 

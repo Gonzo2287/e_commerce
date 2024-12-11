@@ -47,7 +47,7 @@ const VistaProductos: React.FC<Props> = ({ productos }) => {
 
   const traerCombos = async () => {
     try {
-      const comboCantidadRes = await fetch("/api/combosCantidad");
+      const comboCantidadRes = await fetch("http://localhost:3000/api/combosCantidad");
       const comboCantidadData: ComboCantidadData[] = await comboCantidadRes.json();
       setComboCantidad(comboCantidadData);
     } catch (error) {
@@ -80,7 +80,7 @@ const obtenerComboCantidad = (
   return (
     <div className="flex p-4">
       {/* Tarjeta de filtros a la izquierda */}
-      <div className="bg-gray-100 z-40 pt-14 w-1/4">
+      <div className="bg-gray-100 z-40 pt-14 w-2/6 md:w-1/4">
         <div className="bg-white sticky top-14 rounded-tl-xl rounded-b-xl shadow-gray-400 shadow-sm p-4">
           <h2 className="font-semibold mb-2">Filtros</h2>
           <div className="mb-4">
@@ -90,7 +90,7 @@ const obtenerComboCantidad = (
               onChange={(e) => setSelectedBrand(e.target.value)}
               className="border rounded px-4 py-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-400"
             >
-              <option value="">Todas las marcas</option>
+              <option value="">Seleccionar marca...</option>
               {uniqueBrands.map((brand) => (
                 <option key={brand} value={brand}>{brand}</option>
               ))}
@@ -104,7 +104,7 @@ const obtenerComboCantidad = (
               onChange={(e) => setSelectedType(e.target.value)}
               className="border rounded px-4 py-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-400"
             >
-              <option value="">Todos los tipos</option>
+              <option value="">Seleccionar tipo</option>
               {uniqueTypes.map((type) => (
                 <option key={type} value={type}>{type}</option>
               ))}
@@ -112,22 +112,22 @@ const obtenerComboCantidad = (
           </div>
           
           <div className="flex justify-between">
-            <div className="flex items-center">
+            <div className="flex flex-col lg:flex-row w-full justify-center items-center">
               <label className="mr-2">Precio: </label>
               <input
                 type="number"
                 value={priceRange[0]}
                 onChange={(e) => setPriceRange([Number(e.target.value), priceRange[1]])}
-                className="border rounded px-2 py-1 w-24"
+                className="border rounded px-2 py-1 w-20"
                 min={0}
                 max={priceRange[1]}
               />
-              <span className="mx-2">-</span>
+              <span className="mx-1">-</span>
               <input
                 type="number"
                 value={priceRange[1]}
                 onChange={(e) => setPriceRange([priceRange[0], Number(e.target.value)])}
-                className="border rounded px-2 py-1 w-24"
+                className="border rounded px-2 py-1 w-20"
                 min={priceRange[0]}
                 max={100000}
               />
@@ -153,7 +153,7 @@ const obtenerComboCantidad = (
           </div>
         </div>
 
-        <div className="ml-4 gap-6 grid grid-cols-2 sm:grid-cols-4">
+        <div className="ml-4 gap-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {sortedProducts.map((producto) => {
             const combo = obtenerComboCantidad(Number(producto.id_producto), comboCantidad);
 

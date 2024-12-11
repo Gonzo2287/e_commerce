@@ -29,7 +29,7 @@ const ProductForm: React.FC<Props> = ({ productos }) => {
   // Traer productos de la API
   const traerProductos = async () => {
     try {
-      const respuesta = await fetch("/api/producto");
+      const respuesta = await fetch("http://localhost:3000/api/producto");
       const datos = await respuesta.json();
       setProductosData(datos);
     } catch (error) {
@@ -64,7 +64,7 @@ const ProductForm: React.FC<Props> = ({ productos }) => {
     try {
       const respuesta = await fetch(`/api/producto/${id_producto}`, { method: 'DELETE' });
       if (!respuesta.ok) throw new Error('Error al eliminar el producto');
-      setProductosData(prev => prev.filter(producto => producto.id_producto !== id_producto.toString()));
+      setProductosData(prev => prev.filter(producto => Number(producto.id_producto) !== id_producto));
     } catch (error) {
       console.error(error);
     }
@@ -154,22 +154,22 @@ const ProductForm: React.FC<Props> = ({ productos }) => {
                 <CargandoSpinner />
             ) : (
                 <div>
-                    <h1 className="text-2xl font-bold mb-4">Administrar Productos</h1>
+                    <h1 className="mt-6 text-2xl font-bold">Administrar Productos</h1>
                     {/* Botón para mostrar el formulario de crear combos */}
                     <button 
                         onClick={() => { setCrearProducto(true); resetForm(); }} // Reinicia el formulario para crear un nuevo combo
-                        className="fixed right-4 bottom-4 bg-blue-500 text-white text-2xl font-bold py-2 px-4 rounded-full hover:bg-blue-600"
+                        className="fixed right-4 bottom-4 bg-secondary-500 z-50 text-white text-2xl font-bold py-2 px-4 rounded-full hover:bg-secondary-700"
                     >
                         +
                     </button>
                     {/* Modal para crear o editar combos */}
                     {CrearProducto && (
                         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-                            <div className="flex-1 p-6 bg-gray-100 rounded-lg shadow-md max-w-2xl w-full flex flex-col">
+                            <div className="flex-1 p-6 bg-white rounded-lg shadow-md max-w-2xl w-full flex flex-col">
                                     <h2 className="text-2xl font-bold text-gray-800 text-center">
                                         {editProductoId !== null ? "Editar Producto" : "Crear Producto"}
                                     </h2>
-                                    <form onSubmit={handleSubmit} className="max-w-2xl mx-auto bg-white shadow-md rounded-lg p-6">
+                                    <form onSubmit={handleSubmit} className="max-w-2xl mx-auto bg-white">
                                         {/* Nombre y Descripción */}
                                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                                             <div>
@@ -265,14 +265,14 @@ const ProductForm: React.FC<Props> = ({ productos }) => {
                                         <div className="flex justify-end gap-4">
                                             <button
                                                 type="submit"
-                                                className="bg-blue-500 text-white font-semibold py-2 px-4 rounded-lg hover:bg-blue-600 transition-colors"
+                                                className="bg-secondary-500 text-white font-semibold py-2 px-4 rounded-lg hover:bg-secondary-700 transition-colors"
                                             >
                                                 {editProductoId !== null ? "Actualizar Producto" : "Crear Producto"}
                                             </button>
                                             <button
                                                 type="button"
                                                 onClick={() => setCrearProducto(false)}
-                                                className="bg-red-500 text-white font-semibold py-2 px-4 rounded-lg hover:bg-red-600 transition-colors"
+                                                className="bg-red-500 text-white font-semibold py-2 px-4 rounded-lg hover:bg-red-700 transition-colors"
                                             >
                                                 Cancelar
                                             </button>
@@ -283,8 +283,8 @@ const ProductForm: React.FC<Props> = ({ productos }) => {
                     )}
 
                 <div className="w-full flex flex-wrap">
-                    <div className="w-1/4">
-                        <div className="bg-white shadow-gray-400  shadow-lg rounded p-4">
+                    <div className="w-1/4  pt-16">
+                        <div className="bg-white sticky top-14 rounded-tl-xl rounded-b-xl shadow-gray-400 shadow-sm p-4">
                         <h2 className="font-semibold mb-2">Filtros</h2>
                         <div className="mb-4">
                             <label className="block">Marca:</label>
@@ -315,7 +315,7 @@ const ProductForm: React.FC<Props> = ({ productos }) => {
                         </div>
                         
                         <div className="flex justify-between">
-                            <div className="flex items-center">
+                            <div className="flex flex-col lg:flex-row w-full justify-center items-center">
                             <label className="mr-2">Precio: </label>
                             <input
                                 type="number"
@@ -340,43 +340,46 @@ const ProductForm: React.FC<Props> = ({ productos }) => {
                     </div>
 
                     <div className="flex-1 ml-4">
-                        <div className="bg-white rounded-xl shadow-gray-400 shadow-lg p-4 mb-4">
-                        <h2 className="font-semibold mb-2">Buscar Producto</h2>
-                        <div className="mb-4 flex">
-                            <input
-                            type="text"
-                            placeholder="Buscar producto..."
-                            value={filterText}
-                            onChange={(e) => setFilterText(e.target.value)}
-                            className="border rounded px-4 py-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-400"
-                            />
-                        </div>  
+                        <div className='bg-zinc-100 w-full z-30 sticky pt-16 top-0'>
+                            <div className="bg-white rounded-xl shadow-gray-400 shadow-sm p-4 mb-4">
+                                <h2 className="font-semibold mb-2">Buscar Producto</h2>
+                                <div className="mb-4 flex">
+                                    <input
+                                    type="text"
+                                    placeholder="Buscar producto..."
+                                    value={filterText}
+                                    onChange={(e) => setFilterText(e.target.value)}
+                                    className="border rounded px-4 py-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-400"
+                                    />
+                                </div>  
+                            </div>
                         </div>
                         
 
-                        <div className="gap-2 grid grid-cols-2 sm:grid-cols-4">
+                        <div className="gap-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                         {sortedProducts.map((producto) => (
-                            <Card className='relative bg-white p-2 rounded-xl shadow-gray-400 shadow-lg overflow-visible' shadow="lg" key={producto.id_producto}>
+                            <Card className='relative bg-white rounded-xl shadow-gray-400 shadow-sm overflow-visible' shadow="lg" key={producto.id_producto}>
                             <CardBody className="overflow-visible p-0 text-center">
-                            <b className='font-extrabold mb-auto'>{(producto.nombre).toUpperCase()}</b>
-                            <div className="h-0.5 bg-gray-300 w-full my-auto"></div>
+                            
                             <Image
                                 shadow="lg"
                                 radius="lg"
                                 width="100%"
                                 alt={producto.nombre}
-                                className="w-full shadow-gray-700  shadow-lg rounded-md object-cover h-[140px]"
+                                className="w-full rounded-md object-cover h-[140px]"
                                 src={producto.imagen}
                             />
+                            <b className='font-extrabold mb-auto'>{(producto.nombre).toUpperCase()}</b>
+                            {/* <div className="h-0.5 bg-gray-300 w-full my-auto"></div> */}
                             </CardBody>
-                            <CardFooter className="flex text-small items-center justify-between">
-                                <p>Precio: ${(producto.precio)}</p>
+                            <CardFooter className="pb-4 flex text-small items-center justify-between">
+                                <p className="text-green-600 font-bold">${(producto.precio)}</p>
                                 <p>Stock: {(producto.cantidad)}</p>
                             </CardFooter>
                             <div className='text-white flex justify-center items-centerpx-6 pb-2 absolute bottom-[-30px] left-1/2 transform -translate-x-1/2'>
                                 <button 
                                     onClick={() => handleEditarClick(producto)} 
-                                    className="rounded-lg bg-blue-500 p-2 hover:bg-blue-700 mr-2 shadow-gray-400  shadow-lg "
+                                    className="rounded-lg bg-secondary-500 p-2 hover:bg-secondary-700 mr-2 shadow-gray-400  shadow-lg "
                                 >
                                     Editar
                                 </button>

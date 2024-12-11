@@ -10,6 +10,11 @@
   },
   "dependencies": {
     "@auth/prisma-adapter": "^2.5.0",
+    "@fortawesome/fontawesome-svg-core": "^6.7.1",
+    "@fortawesome/free-brands-svg-icons": "^6.7.1",
+    "@fortawesome/free-regular-svg-icons": "^6.7.1",
+    "@fortawesome/free-solid-svg-icons": "^6.7.1",
+    "@fortawesome/react-fontawesome": "^0.2.2",
     "@hookform/resolvers": "^3.9.0",
     "@nextui-org/button": "^2.0.38",
     "@nextui-org/card": "^2.0.34",
