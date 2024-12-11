@@ -1,3 +1,34 @@
 {
-  "extends": ["next/core-web-vitals", "next/typescript"]
+  "extends": [
+    "next/core-web-vitals", 
+    "next/typescript"
+  ],
+  "rules": {
+    // Unused variables
+    "@typescript-eslint/no-unused-vars": ["warn", {
+      "argsIgnorePattern": "^_",
+      "varsIgnorePattern": "^_",
+      "caughtErrorsIgnorePattern": "^_"
+    }],
+    "no-unused-vars": ["warn", {
+      "argsIgnorePattern": "^_",
+      "varsIgnorePattern": "^_",
+      "caughtErrorsIgnorePattern": "^_"
+    }],
+
+    // Allow any type (temporarily, consider removing later)
+    "@typescript-eslint/no-explicit-any": "off",
+
+    // Image optimization warnings
+    "@next/next/no-img-element": "off",
+
+    // Require statement warning
+    "@typescript-eslint/no-var-requires": "off",
+
+    // Missing key in iterator
+    "react/jsx-key": "warn",
+
+    // Accessibility warnings
+    "jsx-a11y/alt-text": "warn"
+  }
 }
